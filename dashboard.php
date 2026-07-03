@@ -34,7 +34,10 @@ if($total['total'] > 0){
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
-
+<footer class="text-center mt-5 mb-3 text-muted">
+    <hr>
+    <small>To-Do List © 2026 | Dibuat oleh Juliyan Rahmadi</small>
+</footer>
 <body class="bg-light">
 
 <div class="container mt-5">
