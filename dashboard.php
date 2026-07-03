@@ -138,7 +138,10 @@ Grafik Status Tugas
 <div class="mt-4">
 
 <a href="tugas.php" class="btn btn-primary">
-
+<div class="alert alert-info mt-4">
+    <strong>Waktu Sekarang :</strong>
+    <?= date("d-m-Y H:i:s"); ?>
+</div>
 Kelola Tugas
 
 </a>
