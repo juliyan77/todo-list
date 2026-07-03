@@ -12,171 +12,132 @@ $selesai = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as selesai FR
 $belum = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as belum FROM tugas WHERE status='Belum Selesai'"));
 
 $persen = 0;
-
-if($total['total'] > 0){
-    $persen = round(($selesai['selesai']/$total['total'])*100);
+if ($total['total'] > 0) {
+    $persen = round(($selesai['selesai'] / $total['total']) * 100);
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Dashboard</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    background: #f4f6f9;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.card h2 {
+    font-weight: bold;
+}
+</style>
 
 </head>
 
-<body class="bg-light">
+<body>
 
 <div class="container mt-5">
 
-<h2 class="mb-2">
-📋 Dashboard To-Do List
-</h2>
+<!-- HEADER -->
+<div class="mb-4">
+    <h2>📋 Dashboard To-Do List</h2>
+    <p class="text-muted">
+        Selamat datang, <b><?= $_SESSION['username']; ?></b>
+    </p>
+</div>
 
-<p class="text-muted">
-Selamat datang,
-<b><?= $_SESSION['username']; ?></b>
-</p>
-
-<div class="row">
+<!-- CARD STAT -->
+<div class="row g-3">
 
 <div class="col-md-3">
-
-<div class="card shadow border-0 bg-primary text-white">
-
+<div class="card shadow bg-primary text-white">
 <div class="card-body">
-
 <h6>Total Tugas</h6>
-
 <h2><?= $total['total']; ?></h2>
-
 </div>
-
 </div>
-
 </div>
 
 <div class="col-md-3">
-
-<div class="card shadow border-0 bg-success text-white">
-
+<div class="card shadow bg-success text-white">
 <div class="card-body">
-
 <h6>Selesai</h6>
-
 <h2><?= $selesai['selesai']; ?></h2>
-
 </div>
-
 </div>
-
 </div>
 
 <div class="col-md-3">
-
-<div class="card shadow border-0 bg-warning">
-
+<div class="card shadow bg-warning">
 <div class="card-body">
-
-<h6>Belum</h6>
-
+<h6>Belum Selesai</h6>
 <h2><?= $belum['belum']; ?></h2>
-
 </div>
-
 </div>
-
 </div>
 
 <div class="col-md-3">
-
-<div class="card shadow border-0 bg-dark text-white">
-
+<div class="card shadow bg-dark text-white">
 <div class="card-body">
-
 <h6>Progress</h6>
-
 <h2><?= $persen ?>%</h2>
-
+</div>
+</div>
 </div>
 
 </div>
 
-</div>
-
-</div>
-
+<!-- CHART -->
 <div class="card shadow mt-4">
-
-<div class="card-header">
-
-Grafik Status Tugas
-
+<div class="card-header bg-white">
+<b>📊 Grafik Status Tugas</b>
 </div>
 
 <div class="card-body">
-
 <canvas id="grafik"></canvas>
-
+</div>
 </div>
 
-</div>
-
-<div class="mt-4">
-
+<!-- BUTTON -->
+<div class="mt-4 d-flex gap-2">
 <a href="tugas.php" class="btn btn-primary">
-
-Kelola Tugas
-
+📋 Kelola Tugas
 </a>
 
 <a href="logout.php" class="btn btn-danger">
-
-Logout
-
+🚪 Logout
 </a>
-
 </div>
 
 </div>
 
+<!-- SCRIPT CHART -->
 <script>
-
 const ctx = document.getElementById('grafik');
 
 new Chart(ctx, {
-
 type: 'doughnut',
-
 data: {
-
-labels: ['Selesai','Belum'],
-
+labels: ['Selesai', 'Belum'],
 datasets: [{
-
 data: [
 <?= $selesai['selesai']; ?>,
 <?= $belum['belum']; ?>
 ]
-
 }]
-
 }
-
 });
-
 </script>
 
 </body>
-
 </html>
